@@ -1,0 +1,91 @@
+Punto 2:
+
+¿Qué se puede notar con respecto al tiempo de ejecución? ¿Es predecible?
+
+Se puede notar que en todos los casos ejecutados, se obtienen los mismos valores de tiempo:
+
+Ejecución 1:
+Tarea 1: 1.73148s
+Tarea 2: 1.00065s
+Tarea 3: 4.00069s
+Total: 6.73s
+
+Ejecución 2:
+Tarea 1: 2.32883s
+Tarea 2: 1.00108s
+Tarea 3: 4.00158s
+Total: 7.33s
+
+
+Ejecución 3:
+Tarea 1: 1.76154s
+Tarea 2: 1.00147s
+Tarea 3: 4.00135s
+Total: 6.76s
+
+Ejecución 4:
+Tarea 1: 1.81459s
+Tarea 2: 1.00136s
+Tarea 3: 4.00096s
+Total: 6.81s
+
+Es predecible, se pueden ver como los valores no exceden en superar 2 segundos pasados al valor actual.
+
+b. Uno de los procesos que pueden considerarse de máxima velocidad dentro del Sistema operativo puede ser dentro del mismo navegador Google Chrome,
+al ejecutarse el archivo "Canvas": createAnimationFrame() en formato loop, en el cual, depende de los recursos totales del sistema a toda su velocidad
+para renderizar cada gráfico de imagen del "canvas".
+
+c. Uno de los procesos que no dependen de la velocidad de procesamiento puede ser la subida de archivos a un servidor externo, no depende de la velocidad de procesamiento
+y de hecho es "sincronico", permitirá terminar su trabajo para seguir con el otro.
+
+
+Con respecto al código "tareas_CON_hilos.py", podemos denotar lo siguiente:
+Con respecto al "tareas_SIN_hilos.py" las tareas no se ejecutan sucevisamente, sinó que se ejecuta primero "tarea 2" y luego "tarea 1" para culminar con "tarea 3".
+Efectivamente en todos los casos de los hilos ejecutados, se ejecutan 2s más rápido que el anterior.
+Comparativa:
+
+Núm     tareas_SIN_hilos            tareas_CON_hilos
+1.      6.73s                       4.07211s
+2.      7.33s                       4.05544s
+3.      6.76s                       4.06608s
+4.      6.81s                       4.08489s
+
+b. No, no las completan en el orden establecido, ya que se ejecutan según prioridad de tiempo
+c. Uno de los escenarios real donde el multi-hilado puede mejorar considerablemente el tiempo de respuesta, puede ser el abrir el programa "Android Studio", donde,
+el multi-hilado de hace ultra necesario para renderizar, cargar y compilar los archivos para un APK de android.
+
+Punto 3:
+¿Qué se puede notar con respecto al tiempo de ejecución?
+Se puede notar que el tiempo de ejecución de "sumador-restador_CON_race.py" varía acorde a cuantas veces se invoque el comando "python XXXXX", devolviendo:
+-4250, -4665, 5000, etc..
+
+¿Qué sucede con el valor final del acumulador?
+Al depender de hilos, tiene que esperar x veces para decrementar o incrementar el valor, inclusive hasta a veces no se ejecutan de forma pareja como en el caso de "sumador-restador.py"
+ya que, sumador y restador lo hace de manera "asincrónica", llamando uno y sucesivamente el otro.
+en el caso de "sumador-restador_CON_race.py", lo hace según la disponibilidad del hilo que esté ejecutando la función.
+
+¿Cómo se puede corregir esta condición de carrera sin dejar de utilizar hilos?
+se podria invocar el entero "acumulador" desde el primer hilo (incremento), y, una vez finalizada se invoca la función de decremento, según el número de valor del "acumulador".
+es decir:
+
+int acumulador = 0;
+
+sumador()
+    acumulador = 5000;
+
+
+restador()
+    si acumulador >= 5000;
+        acumulador = 0;
+    sino:
+        sumador();
+
+
+Punto 4:
+
+¿Qué sucede con el valor final del acumulador?
+El valor final de acumulador en todos los casos es: 0
+
+
+¿Qué se puede notar con respecto al tiempo de ejecución?
+Podemos observar que el tiempo de ejecución, no solamente se realiza más rapido, sino que en todos los casos, incrementa y decrementa exitosamente sin valores de retorno negativos o positivos.
